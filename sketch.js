@@ -349,7 +349,7 @@ fill('blue');
 ellipse(width / 2, height / 2, 200 * value, 200 * value); // 200 es el diámetro del círculo
 fill('white');
 textSize(50 * value);
-text('Comenzar', width / 2 - 55 * value, height / 2 + 10 * value);
+text('Comenzar', width / 2 - 110 * value, height / 2 + 10 * value);
     mousePressed();
   } else {
 drawSprites();
@@ -477,4 +477,5 @@ crearRisk2();
 crearRisk3();
 Puntuacion();
 State();
+
 }
