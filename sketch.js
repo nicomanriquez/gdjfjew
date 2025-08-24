@@ -43,28 +43,29 @@ let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.
 function setup() {
 createCanvas(windowWidth, windowHeight); 
 btnUp = createButton('↑');
-btnUp.position(width/2-40, height-160);
-btnUp.size(80, 80);
+btnUp.position(width/2-60, height-220);  // más arriba
+btnUp.size(120, 120);                    // más grande
 btnUp.touchStarted(() => isUp = true);
 btnUp.touchEnded(() => isUp = false);
 
 btnDown = createButton('↓');
-btnDown.position(width/2-40, height-60);
-btnDown.size(80, 80);
+btnDown.position(width/2-60, height-120); // más arriba
+btnDown.size(120, 120);                   // más grande
 btnDown.touchStarted(() => isDown = true);
 btnDown.touchEnded(() => isDown = false);
 
 btnLeft = createButton('←');
-btnLeft.position(width/2-120, height-110);
-btnLeft.size(80, 80);
+btnLeft.position(width/2-180, height-170); // más arriba y más a la izquierda para compensar tamaño
+btnLeft.size(120, 120);                    // más grande
 btnLeft.touchStarted(() => isLeft = true);
 btnLeft.touchEnded(() => isLeft = false);
 
 btnRight = createButton('→');
-btnRight.position(width/2+40, height-110);
-btnRight.size(80, 80);
+btnRight.position(width/2+20, height-170); // más arriba y ajustado para tamaño
+btnRight.size(120, 120);                    // más grande
 btnRight.touchStarted(() => isRight = true);
 btnRight.touchEnded(() => isRight = false);
+
 
 // Opcional: Oculta el botón por defecto en desktop
 if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -522,4 +523,5 @@ crearRisk2();
 crearRisk3();
 Puntuacion();
 State();
+
 }
