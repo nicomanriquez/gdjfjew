@@ -39,7 +39,7 @@ SmartIMG = loadImage("./imagenes/Smart2.jpeg");
 
 Risk1IMG = loadImage("./imagenes/Risk1.png");
 }
-
+let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 function setup() {
 createCanvas(windowWidth, windowHeight); 
 btnUp = createButton('↑');
@@ -67,7 +67,7 @@ btnRight.touchStarted(() => isRight = true);
 btnRight.touchEnded(() => isRight = false);
 
 // Opcional: Oculta el botón por defecto en desktop
-if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
   btnUp.hide();
   btnDown.hide();
   btnLeft.hide();
@@ -175,11 +175,35 @@ class Hiperlipidemia {
     return 3;
 }
 }
+function destruirObjetos() {
+  // Elimina todos los sprites en muestras
+  for (let i = muestras.length - 1; i >= 0; i--) {
+    if (muestras[i].sprite) {
+      muestras[i].sprite.remove();
+    }
+  }
+  muestras = [];
+
+  // Elimina todos los sprites en CafeG
+  for (let i = CafeG.length - 1; i >= 0; i--) {
+    if (CafeG[i].sprite) {
+      CafeG[i].sprite.remove();
+    }
+  }
+  CafeG = [];
+
+  // Elimina también otros sprites si tienes (por ejemplo DonGui si quieres reiniciarlo)
+  if (DonGui) {
+    DonGui.x = windowWidth/2;
+    DonGui.y = windowHeight/2;
+  }
+}
+
 class Risk1{
 constructor() {
     this.sprite = createSprite(0, Math.round(random(windowHeight/2, windowHeight - 50 * value))); 
     this.sprite.addImage(Risk1IMG);  
-    this.sprite.velocityX = 25 * value;  
+    this.sprite.velocityX = 35 * value;  
     this.sprite.scale = 0.5 * value;
     this.sprite.setCollider('circle', 0, 0, 50);
     this.sprite.lifetime = 200;
@@ -189,7 +213,7 @@ class Risk2{
   constructor() {
     this.sprite = createSprite(windowWidth, Math.round(random(windowHeight/2, windowHeight - 50 * value))); 
     this.sprite.addImage(Risk1IMG); 
-    this.sprite.velocityX = -25 * value;     
+    this.sprite.velocityX = -40 * value;     
     this.sprite.scale = 0.5 * value;
     this.sprite.setCollider('circle', 0, 0, 50);
     this.sprite.lifetime = 200;  
@@ -290,7 +314,13 @@ function State(){
 }
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  value = windowWidth/2000; 
+ if (isMobile) {
+    // Valor base para móvil/tablet, por ejemplo un factor menor para que no se vean gigantes
+    value = windowHeight/2000;
+  } else {
+    // Valor base para PC/Escritorio
+    value = windowWidth / 2000;
+  }
   btnUp.position(width/2-40, height-160);
 btnDown.position(width/2-40, height-60);
 btnLeft.position(width/2-120, height-110);
@@ -338,19 +368,33 @@ function mousePressed() {
 function draw() {
 background(SmartIMG);
  if (lost == true){
-      textFont("Palatino");
+      textFont("Montserrat");
       textSize(50 * value);
       fill("red");
       text("¡Has perdido! Tocaste un ataque.", windowWidth/3, windowHeight/4);
       }
 if (!startGame || lost == true) {
-// Dibuja un círculo azul en el centro
-fill('blue');
-ellipse(width / 2, height / 2, 200 * value, 200 * value); // 200 es el diámetro del círculo
-fill('white');
-textSize(50 * value);
-text('Comenzar', width / 2 - 110 * value, height / 2 + 10 * value);
-    mousePressed();
+// Crear el botón
+let btnComenzar = createButton('Comenzar');
+
+// Posiciona el botón en el centro (ajustando para que quede centrado)
+btnComenzar.position(width / 2 - 100 * value, height / 2 - 50 * value);
+
+// Dale tamaño (aproximado al círculo de 200 diametro)
+btnComenzar.size(200 * value, 200 * value);
+
+// Aplica estilo para que sea un botón azul con texto blanco y bordes redondeados
+btnComenzar.style('background-color', 'blue');
+btnComenzar.style('color', 'white');
+btnComenzar.style('font-size', 30 * value + 'px');
+btnComenzar.style('border-radius', '100px'); // redondeado para parecer un círculo horizontal
+btnComenzar.style('border', 'none');
+btnComenzar.style('cursor', 'pointer');
+
+// Evento click para comenzar el juego
+btnComenzar.mousePressed(() => {
+    startGame = true;
+}); 
   } else {
 drawSprites();
   textos[2].posX = DonGui.position.x - 175 * value;
@@ -359,7 +403,7 @@ drawSprites();
     if (textos[i].activo && textos[i].contador < FRAMES_MOSTRAR) {
       fill("white");
       textSize(37.5 * value);
-      textFont('Roboto Condensed');
+      textFont('Montserrat');
       text(textos[i].mensaje, textos[i].posX, textos[i].posY);
       textos[i].contador++;
        if (textos[i].contador >= FRAMES_MOSTRAR) {
@@ -379,7 +423,8 @@ drawSprites();
   if (DonGui.overlap(m.sprite)) {
     if (m instanceof Risk1 || m instanceof Risk2) {
       startGame = false;    
-      lost = true;      
+      lost = true; 
+      destruirObjetos();
       Puntos = 0;                 
       MuestraCount = 0;           
       countVirus = 0;             
@@ -461,7 +506,7 @@ for (let i = CafeG.length - 1; i >= 0; i--) {
     speedY *= 1.15;
   }
 }
-textFont("Palatino");
+textFont("Montserrat");
 textSize(75 * value);
 fill("red");
 text("Puntos: "+ Puntos, 25 * value,100 * value);
@@ -477,5 +522,4 @@ crearRisk2();
 crearRisk3();
 Puntuacion();
 State();
-
 }
