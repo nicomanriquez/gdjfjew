@@ -362,7 +362,6 @@ function mousePressed() {
     if (dist(mouseX, mouseY, botonX, botonY) < radio) {
       startGame = true;
       lost = false;
-      btnComenzar.hide(); // Esto oculta el botón
     }
   }
 }
@@ -396,6 +395,7 @@ btnComenzar.style('cursor', 'pointer');
 // Evento click para comenzar el juego
 btnComenzar.mousePressed(() => {
     startGame = true;
+  btnComenzar.remove(); // Esto oculta el botón
 }); 
   } else {
 drawSprites();
@@ -526,4 +526,5 @@ Puntuacion();
 State();
 
 }
+
 
