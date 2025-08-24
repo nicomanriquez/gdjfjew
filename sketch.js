@@ -42,6 +42,23 @@ Risk1IMG = loadImage("./imagenes/Risk1.png");
 let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 function setup() {
 createCanvas(windowWidth, windowHeight); 
+// Crear el botón
+let btnComenzar = createButton('Comenzar');
+
+// Posiciona el botón en el centro (ajustando para que quede centrado)
+btnComenzar.position(width / 2 - 100 * value, height / 2 - 50 * value);
+
+// Dale tamaño (aproximado al círculo de 200 diametro)
+btnComenzar.size(200 * value, 200 * value);
+
+// Aplica estilo para que sea un botón azul con texto blanco y bordes redondeados
+btnComenzar.style('background-color', 'blue');
+btnComenzar.style('color', 'white');
+btnComenzar.style('font-size', 30 * value + 'px');
+btnComenzar.style('border-radius', '100px'); // redondeado para parecer un círculo horizontal
+btnComenzar.style('border', 'none');
+btnComenzar.style('cursor', 'pointer');
+
 btnUp = createButton('↑');
 btnUp.position(width/2-60, height-220);  // más arriba
 btnUp.size(120, 120);                    // más grande
@@ -74,7 +91,9 @@ if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navig
   btnLeft.hide();
   btnRight.hide();
 }
-
+if (startGame == true){
+    btnComenzar.hide(); // Esto oculta el botón
+}
 value = windowWidth/2000; 
 speedX = 20 * value, speedY = 10 * value;
   textos[0].posX = windowWidth - 325 * value;
@@ -375,27 +394,9 @@ background(SmartIMG);
       text("¡Has perdido! Tocaste un ataque.", windowWidth/3, windowHeight/4);
       }
 if (!startGame || lost == true) {
-// Crear el botón
-let btnComenzar = createButton('Comenzar');
-
-// Posiciona el botón en el centro (ajustando para que quede centrado)
-btnComenzar.position(width / 2 - 100 * value, height / 2 - 50 * value);
-
-// Dale tamaño (aproximado al círculo de 200 diametro)
-btnComenzar.size(200 * value, 200 * value);
-
-// Aplica estilo para que sea un botón azul con texto blanco y bordes redondeados
-btnComenzar.style('background-color', 'blue');
-btnComenzar.style('color', 'white');
-btnComenzar.style('font-size', 30 * value + 'px');
-btnComenzar.style('border-radius', '100px'); // redondeado para parecer un círculo horizontal
-btnComenzar.style('border', 'none');
-btnComenzar.style('cursor', 'pointer');
-
 // Evento click para comenzar el juego
 btnComenzar.mousePressed(() => {
     startGame = true;
-  btnComenzar.remove(); // Esto oculta el botón
 }); 
   } else {
 drawSprites();
@@ -526,5 +527,6 @@ Puntuacion();
 State();
 
 }
+
 
 
