@@ -12,6 +12,7 @@ var muestras = [];
 var CafeG = [];
 var startGame = false;
 var lost = false;
+var btnComenzar;
 let textos = [
   { mensaje: "PCR Negativo", activo: false, contador: 0, posX: 0, posY: 0},
   { mensaje: "PCR Positivo", activo: false, contador: 0, posX: 0, posY: 0},
@@ -43,7 +44,7 @@ let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.
 function setup() {
 createCanvas(windowWidth, windowHeight); 
 // Crear el botón
-let btnComenzar = createButton('Comenzar');
+btnComenzar = createButton('Comenzar');
 
 // Posiciona el botón en el centro (ajustando para que quede centrado)
 btnComenzar.position(width / 2 - 100 * value, height / 2 - 50 * value);
@@ -527,6 +528,7 @@ Puntuacion();
 State();
 
 }
+
 
 
 
