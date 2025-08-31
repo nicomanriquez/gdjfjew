@@ -43,7 +43,8 @@ Risk1IMG = loadImage("./imagenes/Risk1.png");
 let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 function setup() {
 createCanvas(windowWidth, windowHeight); 
-// Crear el botón
+value = windowWidth/2000; 
+  // Crear el botón
 btnComenzar = createButton('Comenzar');
 
 // Posiciona el botón en el centro (ajustando para que quede centrado)
@@ -95,7 +96,6 @@ if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navig
 if (startGame == true){
     btnComenzar.hide(); // Esto oculta el botón
 }
-value = windowWidth/2000; 
 speedX = 20 * value, speedY = 10 * value;
   textos[0].posX = windowWidth - 325 * value;
   textos[0].posY = windowHeight - 325 * value;
@@ -528,6 +528,7 @@ Puntuacion();
 State();
 
 }
+
 
 
 
