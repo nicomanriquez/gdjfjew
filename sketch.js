@@ -65,25 +65,25 @@ function setup() {
   });
 
   btnUp = createButton('↑');
-  btnUp.position(width / 2 - 60, height - 220);
+  btnUp.position(width / 2 - 60, height - 440);
   btnUp.size(120, 120);
   btnUp.touchStarted(() => isUp = true);
   btnUp.touchEnded(() => isUp = false);
 
   btnDown = createButton('↓');
-  btnDown.position(width / 2 - 60, height - 120);
+  btnDown.position(width / 2 - 60, height - 240);
   btnDown.size(120, 120);
   btnDown.touchStarted(() => isDown = true);
   btnDown.touchEnded(() => isDown = false);
 
   btnLeft = createButton('←');
-  btnLeft.position(width / 2 - 180, height - 170);
+  btnLeft.position(width / 2 - 180, height - 340);
   btnLeft.size(120, 120);
   btnLeft.touchStarted(() => isLeft = true);
   btnLeft.touchEnded(() => isLeft = false);
 
   btnRight = createButton('→');
-  btnRight.position(width / 2 + 20, height - 170);
+  btnRight.position(width / 2 + 60, height - 340);
   btnRight.size(120, 120);
   btnRight.touchStarted(() => isRight = true);
   btnRight.touchEnded(() => isRight = false);
@@ -549,7 +549,7 @@ function draw() {
   if (!startGame) {
     textFont("Montserrat");
     textSize(50 * value);
-    fill("white");
+    fill("black");
     textAlign(CENTER, CENTER);
     text("Presiona 'Comenzar' para iniciar", width / 2, height / 2 - 150 * value);
     return;
@@ -626,7 +626,7 @@ function draw() {
   textos[2].posY = DonGui.position.y - 50 * value;
   for (let i = 0; i < textos.length; i++) {
     if (textos[i].activo && textos[i].contador < FRAMES_MOSTRAR) {
-      fill("white");
+      fill("black");
       textSize(37.5 * value);
       textFont('Montserrat');
       text(textos[i].mensaje, textos[i].posX, textos[i].posY);
