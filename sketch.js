@@ -13,6 +13,7 @@ var CafeG = [];
 var startGame = false;
 var lost = false;
 var btnComenzar;
+var btnReintentar;
 let textos = [
   { mensaje: "PCR Negativo", activo: false, contador: 0, posX: 0, posY: 0},
   { mensaje: "PCR Positivo", activo: false, contador: 0, posX: 0, posY: 0},
@@ -63,7 +64,21 @@ function setup() {
     startGame = true;
     btnComenzar.hide();
   });
-
+  btnReintentar = createButton('Volver a intentar');
+  btnReintentar.position(width / 2 - 100 * value, height / 2);
+  btnReintentar.size(200 * value, 100 * value);
+  btnReintentar.style('background-color', 'red');
+  btnReintentar.style('color', 'white');
+  btnReintentar.style('font-size', 30 * value + 'px');
+  btnReintentar.style('border-radius', '50px');
+  btnReintentar.style('border', 'none');
+  btnReintentar.style('cursor', 'pointer');
+  btnReintentar.hide();
+  btnReintentar.mousePressed(() => {
+    reiniciarJuego();
+    btnReintentar.hide();
+  });
+}
   btnUp = createButton('↑');
   btnUp.position(width / 2 - 60, height - 440);
   btnUp.size(120, 120);
@@ -122,18 +137,21 @@ function draw() {
     fill("white");
     textAlign(CENTER, CENTER);
     text("Presiona 'Comenzar' para iniciar", width / 2, height / 2 - 150 * value);
+    btnReintentar.hide();
     return;
   }
 
-  if (lost) {
+if (lost) {
     textFont("Montserrat");
     textSize(50 * value);
     fill("red");
     textAlign(CENTER, CENTER);
     text("¡Has perdido! Tocaste un ataque.", width / 2, height / 4);
+    btnReintentar.show();
     return;
+  } else {
+    btnReintentar.hide();
   }
-
   Move();
   crearMuestra();
   createCafe();
@@ -222,6 +240,20 @@ function draw() {
   }
 }
 
+function reiniciarJuego() {
+  lost = false;
+  startGame = true;
+  Puntos = 0;
+  MuestraCount = 0;
+  countVirus = 0;
+  countGlucemia = 0;
+  countHipertension = 0;
+  countHiperlipidemia = 0;
+  destruirObjetos();
+  DonGui.position.x = windowWidth / 2;
+  DonGui.position.y = windowHeight / 2;
+  fase = 0;
+}
 function Move() {
   if (keyDown(UP_ARROW) || isUp) {
     DonGui.position.y -= speedY;
@@ -651,4 +683,5 @@ function draw() {
 
   lateUpdate();
 }
+
 
