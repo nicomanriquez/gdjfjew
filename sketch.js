@@ -126,7 +126,6 @@ function setup() {
   Estacion.addImage(EstacionIMG);
   Estacion.scale = value * 3.5;
   Estacion.debug = true;
-}
 
 function draw() {
   background(SmartIMG);
@@ -683,5 +682,6 @@ function draw() {
 
   lateUpdate();
 }
+
 
 
