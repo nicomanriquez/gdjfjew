@@ -78,7 +78,7 @@ function setup() {
     reiniciarJuego();
     btnReintentar.hide();
   });
-}
+
   btnUp = createButton('↑');
   btnUp.position(width / 2 - 60, height - 440);
   btnUp.size(120, 120);
@@ -102,7 +102,7 @@ function setup() {
   btnRight.size(120, 120);
   btnRight.touchStarted(() => isRight = true);
   btnRight.touchEnded(() => isRight = false);
-
+}
   if (!isMobile) {
     btnUp.hide();
     btnDown.hide();
@@ -682,6 +682,7 @@ function draw() {
 
   lateUpdate();
 }
+
 
 
 
