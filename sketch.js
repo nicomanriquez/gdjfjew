@@ -126,7 +126,7 @@ function setup() {
   Estacion.addImage(EstacionIMG);
   Estacion.scale = value * 3.5;
   Estacion.debug = true;
-
+/*
 function draw() {
   background(SmartIMG);
 
@@ -237,7 +237,7 @@ if (lost) {
     textSize(30 * value);
     text("Deja aqui tus muestras", windowWidth - 325 * value, windowHeight - 225 * value);
   }
-}
+}*/
 
 function reiniciarJuego() {
   lost = false;
@@ -682,6 +682,7 @@ function draw() {
 
   lateUpdate();
 }
+
 
 
 
